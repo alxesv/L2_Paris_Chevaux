@@ -1,12 +1,12 @@
 import 'dart:async';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class MongoDatabase {
   static var db, userCollection, horseCollection, lessonCollection, meetingCollection, tournamentCollection;
 
   static connect () async {
-    db = await Db.create("mongodb+srv://coding_flutter:flutter@cluster0.alfynpd.mongodb.net/");
+    db = await Db.create(dotenv.env['MONGODB_URI']!);
     await db.open();
     print("connected");
     userCollection = db.collection('users');
