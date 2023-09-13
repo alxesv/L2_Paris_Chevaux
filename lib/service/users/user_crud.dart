@@ -25,10 +25,20 @@ Future<bool> login(String username, String password) async {
     return false;
   }
 }
-
+/*
 void saveUser(User user) async {
   await MongoDatabase.userCollection.insertMany([user.toMap()]);
 }
+
+
+void saveUser(User user) async {
+  await MongoDatabase.userCollection.insertOne(user.toMap());
+}
+*/
+Future<void> saveUser(User user) async {
+  await MongoDatabase.userCollection.insertMany([user.toMap()]);
+}
+
 
 // Future<User> readUser(String id) async {
 //   var req = await MongoDatabase.userCollection.findOne(where.eq("id", id));

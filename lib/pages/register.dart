@@ -1,122 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import '../../models/user.dart';
+import '../../service/users/user_crud.dart';
 
 class RegisterPage extends StatelessWidget {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String username = '';
-  String email = '';
-  String password = '';
-  String passwordConfirmation = '';
-  String avatar = '';
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _register(BuildContext context) async {
+    final username = _usernameController.text;
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
+    try {
+      User newUser = User(
+        id: ObjectId(),
+        username: username,
+        email: email,
+        password: password,
+        avatar: "https://i.pravatar.cc/150?u=$username",
+      );
+
+      await saveUser(newUser);
+      Navigator.pushNamed(context, '/login');
+    } catch (e) {
+      print("An error occurred: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Register'),
-      ),
-      body: Form(
-        key: _formKey,
+      appBar: AppBar(title: Text("Register")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Username Field
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'avatar',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'enter link of your avatar';
-                }
-                return null;
-              },
-              onSaved: (String? value) {
-                avatar = value ?? '';
-              },
+            TextField(
+              controller: _usernameController,
+              decoration: InputDecoration(labelText: 'Username'),
             ),
-            SizedBox(height: 16),
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Username',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a username';
-                }
-                return null;
-              },
-              onSaved: (String? value) {
-                username = value ?? '';
-              },
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(labelText: 'Email'),
             ),
-            SizedBox(height: 16),
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Email',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an email';
-                }
-                if (!value.contains('@')) {
-                  return 'Please enter a valid email';
-                }
-                return null;
-              },
-              onSaved: (String? value) {
-                email = value ?? '';
-              },
-            ),
-            SizedBox(height: 16),
-            TextFormField(
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: 'Password'),
               obscureText: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a password';
-                }
-                return null;
-              },
-              onSaved: (String? value) {
-                password = value ?? '';
-              },
-            ),
-            SizedBox(height: 5),
-            TextFormField(
-              obscureText: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password confirmation',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter password again';
-                }
-                return null;
-              },
-              onSaved: (String? value) {
-                passwordConfirmation = value ?? '';
-              },
             ),
             ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  // function to register
-                  if (login == true) {
-                    Navigator.pushNamed(context, '/start');
-                  } else {
-                  Navigator.pushNamed(context, '/login');
-                }
-              },
-              child: Text('Register'),
+              onPressed: () => _register(context),
+              child: Text("Register"),
             ),
           ],
         ),
