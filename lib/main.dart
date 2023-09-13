@@ -1,12 +1,19 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:projet_chevaux/models/user.dart';
 import 'database/database.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mongo_dart/mongo_dart.dart' as mongo;
 
+// debug code
+import 'service/users/user_crud.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await MongoDatabase.connect();
+
   runApp(const MyApp());
 }
 
@@ -122,7 +129,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () async {
+          var user = login("username", "passwor");
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
