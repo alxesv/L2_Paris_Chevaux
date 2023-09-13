@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/login': (context) => LoginPage(),
-        // '/register': (context) => RegisterPage(),
+        '/register': (context) => RegisterPage(),
+        '/start': (context) => StartPage(),
         },
       title: 'Horse race manager',
       theme: ThemeData(

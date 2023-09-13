@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
 
-
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -70,14 +69,20 @@ class LoginPage extends StatelessWidget {
                   if (_formKey.currentState?.validate() == true) {
                     _formKey.currentState?.save();
 
-                    // Perform your login logic here, for example,
-                    // you can compare username and password with stored values
-
-                    // Navigate back to the start page if the login is correct
                     Navigator.pushNamed(context, '/start');
                   }
                 },
               ),
+            ),
+            Center(
+              child: ElevatedButton(
+                  child: const Text(
+                    'BACK',
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/start');
+                  }),
             ),
           ],
         ),

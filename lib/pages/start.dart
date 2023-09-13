@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
-// This will be our start page, with the login button, that will redirect to the login.dart file, and register button that will redirect to register.dart file
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
 
@@ -36,6 +35,7 @@ class StartPage extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -54,7 +54,7 @@ class StartPage extends StatelessWidget {
                     style: TextStyle(fontSize: 30),
                   ),
                   onPressed: () {
-                    //Navigator.pushNamed(context, '/register');
+                    Navigator.pushNamed(context, '/register');
                   },
                 ),
               ),
