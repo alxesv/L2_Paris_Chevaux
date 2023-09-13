@@ -109,8 +109,10 @@ class RegisterPage extends StatelessWidget {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-
-                  
+                  // function to register
+                  if (login == true) {
+                    Navigator.pushNamed(context, '/start');
+                  } else {
                   Navigator.pushNamed(context, '/login');
                 }
               },
