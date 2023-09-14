@@ -25,30 +25,23 @@ Future<bool> login(String username, String password) async {
     return false;
   }
 }
-/*
-void saveUser(User user) async {
-  await MongoDatabase.userCollection.insertMany([user.toMap()]);
-}
-
-void saveUser(User user) async {
-  await MongoDatabase.userCollection.insertOne(user.toMap());
-}
-*/
 
 
 Future<void> saveUser(User user) async {
   await MongoDatabase.userCollection.insertMany([user.toMap()]);
 }
 
+Future<void> deleteUser(String id) async {
+  await MongoDatabase.userCollection
+      .deleteOne(where.id(ObjectId.fromHexString(id)));
+}
 
-// Future<User> readUser(String id) async {
-//   var req = await MongoDatabase.userCollection.findOne(where.eq("id", id));
 
-//   return User(
-//       id: req.id,
-//       username: req.username,
-//       password: req.password,
-//       email: req.email,
-//       role: req.role,
-//       avatar: req.avatar);
-// }
+// boiler plate code for testing user
+        //   saveUser(User(
+        //       id: ObjectId(),
+        //       username: "username",
+        //       password: "password",
+        //       email: "email",
+        //       avatar: "avatar"));
+        // },

@@ -4,18 +4,20 @@ class Lesson {
   final ObjectId id;
   final String name;
   final String terrain;
-  final DateTime datetime;
+  final String date;
+  final String time;
   final String duration;
-  final Enum subject;
+  final String subject;
 
-  const Lesson(this.id, this.name, this.terrain, this.datetime, this.duration, this.subject);
+  const Lesson(this.id, this.name, this.terrain, this.date, this.time, this.duration, this.subject);
 
   Map<String, dynamic> toMap(){
       return {
         '_id': id,
         'name': name,
         'terrain': terrain,
-        'datetime': datetime,
+        'date': date,
+        'time': time,
         'duration': duration,
         'subject': subject,
       };
@@ -25,7 +27,8 @@ class Lesson {
       : id = map['id'],
         name = map['name'],
         terrain = map['terrain'],
-        datetime = map['datetime'],
+        date = map['date'],
+        time = map['time'],
         duration = map['duration'],
         subject = map['subject'];
 

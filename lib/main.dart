@@ -7,6 +7,7 @@ import '../database/database.dart';
 import '../pages/home.dart';
 
 
+
 void main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +45,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    //return const StartPage();
     return const StartPage();
   }
 }
