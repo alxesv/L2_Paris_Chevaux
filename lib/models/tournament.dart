@@ -8,7 +8,7 @@ class Tournament {
   final String photo;
   final String date;
   final String time;
-  final List<String> participants;
+  final List<ObjectId> participants;
 
   const Tournament(this.id, this.name, this.address, this.photo, this.date, this.time, this.participants);
 

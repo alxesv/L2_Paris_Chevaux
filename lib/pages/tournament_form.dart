@@ -8,7 +8,7 @@ import '../service/users/user_crud.dart';
 
 late String date;
 late String time;
-final List<String> participants = [];
+List<M.ObjectId> participants = [];
 
 class TournamentPage extends StatelessWidget {
   TournamentPage({Key? key}) : super(key: key);
@@ -17,6 +17,8 @@ class TournamentPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _photoController = TextEditingController();
+  final TextEditingController _participantsController = TextEditingController();
+
 
 
   _insert() async {
@@ -30,6 +32,8 @@ class TournamentPage extends StatelessWidget {
         participants
     );
     await insertTournament(tournament);
+    _formKey.currentState?.reset();
+    participants = [];
   }
 
 
@@ -85,7 +89,37 @@ class TournamentPage extends StatelessWidget {
                     const SizedBox(height: 8),
                     const timefield(),
                     const SizedBox(height: 8),
-                    const ParticipantsField()
+            TextFormField(
+              controller: _participantsController,
+              decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  labelText: "Enter Participants usernames separated by a comma"
+              ),
+              onSaved:
+                  (value) {
+                if (value != null && value.isNotEmpty) {
+                  List<String> usernames = value.split(',');
+                  usernames.forEach((username) async {
+                    try {
+                      bool exists = await doesUserExist(username);
+                      if(exists){
+                        User user = await getUserId(username);
+                        participants.add(user.id);
+                        _insert();
+                      }
+                    } catch (e) {
+                      print(e);
+                    }
+                  });
+                }
+              }
+              ,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+              },
+            )
                   ]),
             ),
             Row(
@@ -101,10 +135,8 @@ class TournamentPage extends StatelessWidget {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState?.save();
-                      _insert();
                       //Navigator.pop(context, 'Add');
                     }
-                    _formKey.currentState?.reset();
                   },
                   child: const Text("Add"),
                 ),
@@ -211,50 +243,6 @@ class _timefieldState extends State<timefield>{
             return 'Please enter some text';
           }
         }
-    );
-  }
-}
-
-class ParticipantsField extends StatefulWidget {
-  const ParticipantsField({super.key});
-
-  @override
-  _ParticipantsFieldState createState() => _ParticipantsFieldState();
-}
-
-class _ParticipantsFieldState extends State<ParticipantsField>{
-  final TextEditingController _participantsController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: _participantsController,
-      decoration: const InputDecoration(
-          icon: Icon(Icons.person),
-          labelText: "Enter Participants usernames separated by a comma"
-      ),
-      onSaved:
-        (value) {
-          if (value != null && value.isNotEmpty) {
-            List<String> usernames = value.split(',');
-            usernames.forEach((username) async {
-              try {
-                bool exists = await doesUserExist(username);
-                print(exists);
-                if(exists){
-                  participants.add(username);
-                }
-              } catch (e) {
-                print(e);
-              }
-            });
-          }
-        }
-      ,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter some text';
-        }
-      },
     );
   }
 }
