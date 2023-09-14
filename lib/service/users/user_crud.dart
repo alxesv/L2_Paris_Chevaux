@@ -26,6 +26,7 @@ Future<bool> login(String username, String password) async {
   }
 }
 
+
 Future<void> saveUser(User user) async {
   await MongoDatabase.userCollection.insertMany([user.toMap()]);
 }
