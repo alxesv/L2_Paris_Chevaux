@@ -3,6 +3,7 @@ import 'package:projet_chevaux/database/database.dart';
 import 'package:projet_chevaux/components/horse_card.dart';
 
 import '../models/horse.dart';
+import '../service/horses/horse_crud.dart';
 
 
 class HorsesList extends StatefulWidget {
@@ -33,7 +34,12 @@ class _HorsesListState extends State<HorsesList>{
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                return HorseCard(horse: horses[index]);
+                return HorseCard(horse: horses[index], delete: () {
+                  deleteHorse(horses[index].id.toHexString());
+                  setState(() {
+                    horses.removeAt(index);
+                  });
+                });
               },
             );
           } else {

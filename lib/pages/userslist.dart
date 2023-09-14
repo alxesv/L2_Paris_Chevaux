@@ -3,6 +3,7 @@ import 'package:projet_chevaux/database/database.dart';
 import 'package:projet_chevaux/components/user_card.dart';
 
 import '../models/user.dart';
+import '../service/users/user_crud.dart';
 
 
 class UsersList extends StatefulWidget {
@@ -33,7 +34,12 @@ class _UsersListState extends State<UsersList>{
         return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                return UserCard(user: users[index]);
+                return UserCard(user: users[index], delete: () {
+                  deleteUser(users[index].id.toHexString());
+                  setState(() {
+                    users.removeAt(index);
+                  });
+                });
               },
             );
     } else {
