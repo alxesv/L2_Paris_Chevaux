@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
-import '../database/database.dart';
+
 import '../service/users/user_crud.dart';
 
 bool isloggedin = false;
+String loggedusername = '';
+
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -80,7 +81,9 @@ class LoginPage extends StatelessWidget {
                       Navigator.pushNamed(context, '/home');
                       print('username: $username' + " Connected");
                       isloggedin = true;
+                      loggedusername = username;
                       print(isloggedin);
+                      print(loggedusername);
                     } else {
                       print("Authentication failed!");
                       // Here you could show a dialog or a SnackBar to inform the user

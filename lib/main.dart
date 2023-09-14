@@ -5,6 +5,7 @@ import '../pages/login.dart';
 import '../pages/register.dart';
 import '../database/database.dart';
 import '../pages/home.dart';
+import '../pages/userprofile.dart';
 
 
 void main() async {
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/start': (context) => StartPage(),
         '/home': (context) => HomePage(),
+        '/userprofile': (context) => UserProfilePage(),
         },
+      debugShowCheckedModeBanner: false,
       title: 'Horse race manager',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
