@@ -70,6 +70,9 @@ class LoginPage extends StatelessWidget {
                     _formKey.currentState?.save();
 
                     Navigator.pushNamed(context, '/start');
+                    print('username: $username' + " Connected");
+                    var connected = true;
+
                   }
                 },
               ),

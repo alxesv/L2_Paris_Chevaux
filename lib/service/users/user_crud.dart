@@ -30,11 +30,12 @@ void saveUser(User user) async {
   await MongoDatabase.userCollection.insertMany([user.toMap()]);
 }
 
-
 void saveUser(User user) async {
   await MongoDatabase.userCollection.insertOne(user.toMap());
 }
 */
+
+
 Future<void> saveUser(User user) async {
   await MongoDatabase.userCollection.insertMany([user.toMap()]);
 }

@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import '../pages/start.dart';
 import '../pages/login.dart';
 import '../pages/register.dart';
+import '../database/database.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+
+void main() async {
+  await dotenv.load(fileName: ".env");
+  WidgetsFlutterBinding.ensureInitialized();
+  await MongoDatabase.connect();
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
