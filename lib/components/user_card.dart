@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projet_chevaux/models/user.dart';
-import 'package:projet_chevaux/service/users/user_crud.dart';
+import 'package:projet_chevaux/pages/login.dart';
 
 class UserCard extends StatelessWidget {
   const UserCard({super.key, required this.user, required this.delete});
@@ -23,13 +23,14 @@ class UserCard extends StatelessWidget {
         // if user is admin
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
+          children: [ if(isadmin)...[
             GestureDetector(
               child: const Icon(Icons.delete),
               onTap: () {
                 delete();
               },
             ),
+          ]
           ],
         ),
       ),

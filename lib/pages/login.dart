@@ -4,6 +4,7 @@ import '../service/users/user_crud.dart';
 
 bool isloggedin = false;
 String loggedusername = '';
+bool isadmin = false;
 
 
 class LoginPage extends StatelessWidget {
@@ -82,6 +83,9 @@ class LoginPage extends StatelessWidget {
                       print('username: $username' + " Connected");
                       isloggedin = true;
                       loggedusername = username;
+                      if (await isAdmin(username)) {
+                        isadmin = true;
+                      }
                       print(isloggedin);
                       print(loggedusername);
                     } else {

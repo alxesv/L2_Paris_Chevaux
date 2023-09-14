@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projet_chevaux/models/horse.dart';
 
+import '../pages/login.dart';
+
 
 class HorseCard extends StatelessWidget {
   const HorseCard({super.key, required this.horse, required this.delete});
@@ -23,12 +25,14 @@ class HorseCard extends StatelessWidget {
         // if user is admin
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
+          children: [ if(isadmin)...[
             GestureDetector(
               child: const Icon(Icons.delete),
               onTap: () {
-                  delete();
-                })
+                delete();
+              },
+            ),
+          ]
           ],
         ),
       ),
