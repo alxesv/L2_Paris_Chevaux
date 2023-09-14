@@ -3,7 +3,6 @@ import '../../models/user.dart';
 
 import 'login.dart';
 
-
 class UserProfilePage extends StatefulWidget {
   @override
   _UserProfilePageState createState() => _UserProfilePageState();
@@ -30,34 +29,56 @@ class _UserProfilePageState extends State<UserProfilePage> {
       ),
       body: loggedusername.isNotEmpty // Ensure the username is not empty
           ? FutureBuilder<User?>(
-        future: getCurrentUser(loggedusername),
-        builder: (context, snapshot) {
-          print(snapshot);
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else if (!snapshot.hasData || snapshot.data == null) {
-            return Text('No user found');
-          } else {
-            User user = snapshot.data!;
-            return Column(
-              children: [
-                Text('Name: ${user.username}'),
-                Text('Age: ${user.age}'),
-                Text('Phone: ${user.phone}'),
-                ElevatedButton(
-                  onPressed: () => _editProfile(user),
-                  child: Text('Edit Profile'),
-                ),
-              ],
-            );
-          }
-        },
-      )
+              future: getCurrentUser(loggedusername),
+              builder: (context, snapshot) {
+                print(snapshot);
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData || snapshot.data == null) {
+                  return Text('No user found');
+                } else {
+                  User user = snapshot.data!;
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'Name: ${user.username}',
+                            style: TextStyle(
+                              fontSize: 24.0,
+                            ),
+                          ),
+                          Text(
+                            'Age: ${user.age}',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                            ),
+                          ),
+                          Text(
+                            'Phone: ${user.phone}',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
+
+                          ElevatedButton(
+                            onPressed: () => _editProfile(user),
+                            child: Text('Edit Profile'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                }
+              },
+            )
           : Center(
-        child: Text("No username found, please login again."),
-      ),
+              child: Text("No username found, please login again."),
+            ),
     );
   }
 }
