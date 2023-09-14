@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
 
+bool isloggedin = false;
+
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -71,7 +73,8 @@ class LoginPage extends StatelessWidget {
 
                     Navigator.pushNamed(context, '/start');
                     print('username: $username' + " Connected");
-                    var connected = true;
+                    isloggedin = true;
+                    print(isloggedin);
 
                   }
                 },

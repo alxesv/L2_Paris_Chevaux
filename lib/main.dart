@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/start': (context) => StartPage(),
+        '/home': (context) => Home(),
         },
       title: 'Horse race manager',
       theme: ThemeData(
