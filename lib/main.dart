@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../pages/start.dart';
 import '../pages/login.dart';
 import '../pages/register.dart';
 import '../database/database.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../pages/home.dart';
 
 
 void main() async {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/start': (context) => StartPage(),
-        '/home': (context) => Home(),
+        '/home': (context) => HomePage(),
         },
       title: 'Horse race manager',
       theme: ThemeData(
