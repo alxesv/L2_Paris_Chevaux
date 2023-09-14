@@ -10,7 +10,16 @@ class User {
   final String phone;
   final int age;
 
-  const User(this.id, this.username, this.password, this.email, this.admin, this.avatar, this.phone, this.age);
+
+  const User(
+      {required this.id,
+      required this.username,
+      required this.password,
+      required this.email,
+      required this.avatar,
+      this.admin = false,
+      this.age = 0,
+      this.phone = ''});
 
   Map<String, dynamic> toMap() {
     return {
@@ -25,13 +34,14 @@ class User {
     };
   }
 
-    User.fromMap(Map<String, dynamic> map)
-        : id = map['_id'],
-          username = map['username'],
-          password = map['password'],
-          email = map['email'],
-          admin = map['admin'],
-          avatar = map['avatar'],
-          phone = map['phone'],
-          age = map['age'];
-  }
+
+  User.fromMap(Map<String, dynamic> map)
+      : id = map['_id'],
+        username = map['username'],
+        password = map['password'],
+        email = map['email'],
+        admin = map['admin'],
+        avatar = map['avatar'],
+        phone = map['phone'],
+        age = map['age'];
+}

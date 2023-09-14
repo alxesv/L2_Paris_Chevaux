@@ -20,3 +20,38 @@ Future<User> getUserId(String username) async {
   }
 
 }
+
+Future<bool> login(String username, String password) async {
+  var query =
+      await MongoDatabase.userCollection.findOne({"username": username});
+
+  print(query);
+
+  if (query['password'] == password) {
+    print("logged in!");
+    return true;
+  } else {
+    print("wrong credentials!");
+    return false;
+  }
+}
+
+
+Future<void> saveUser(User user) async {
+  await MongoDatabase.userCollection.insertMany([user.toMap()]);
+}
+
+Future<void> deleteUser(String id) async {
+  await MongoDatabase.userCollection
+      .deleteOne(where.id(ObjectId.fromHexString(id)));
+}
+
+
+// boiler plate code for testing user
+        //   saveUser(User(
+        //       id: ObjectId(),
+        //       username: "username",
+        //       password: "password",
+        //       email: "email",
+        //       avatar: "avatar"));
+        // },
