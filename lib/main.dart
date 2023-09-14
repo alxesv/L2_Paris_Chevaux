@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:projet_chevaux/pages/horse_form.dart';
+import 'package:projet_chevaux/pages/horseslist.dart';
+import 'package:projet_chevaux/pages/userslist.dart';
 import '../pages/start.dart';
 import '../pages/login.dart';
 import '../pages/register.dart';
 import '../database/database.dart';
 import '../pages/home.dart';
+import '../pages/meeting_form.dart';
 import '../pages/userprofile.dart';
 import '../pages/lesson_form.dart';
 import '../pages/tournament_form.dart';
-
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -16,6 +19,7 @@ void main() async {
   await MongoDatabase.connect();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -30,7 +34,13 @@ class MyApp extends StatelessWidget {
         '/userprofile': (context) => UserProfilePage(),
         '/LessonFormPage': (context) => LessonFormPage(),
         '/TournamentPage': (context) => TournamentPage(),
-        },
+        '/userprofile': (context) => UserProfilePage(),
+        '/horse_form': (context) => HorseFormPage(),
+        '/horseslist': (context) => HorsesList(),
+        '/MeetingFormPage': (context) => MeetingFormPage(),
+        '/UsersList': (context) => UsersList(),
+
+      },
       debugShowCheckedModeBanner: false,
       title: 'Horse race manager',
       theme: ThemeData(
@@ -42,6 +52,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -52,12 +63,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const StartPage();
+    return  StartPage();
   }
 }
-
-
-
-
-
-

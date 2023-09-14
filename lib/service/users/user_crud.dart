@@ -10,6 +10,15 @@ Future<bool> doesUserExist(String username) async {
 
 }
 
+
+Future<bool> isAdmin (String username) async {
+  final user = await MongoDatabase.userCollection.findOne(where.eq('username', username));
+  print(user['admin']);
+  return user['admin'] == true;
+
+}
+
+
 Future<User> getUserId(String username) async {
   final user = await MongoDatabase.userCollection.findOne(where.eq('username', username));
 
