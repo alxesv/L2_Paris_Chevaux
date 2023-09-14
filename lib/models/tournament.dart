@@ -25,7 +25,7 @@ class Tournament {
     }
 
   Tournament.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
+      : id = map['_id'],
         name = map['name'],
         address = map['address'],
         photo = map['photo'],
