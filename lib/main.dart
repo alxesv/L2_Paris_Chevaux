@@ -6,7 +6,8 @@ import '../pages/register.dart';
 import '../database/database.dart';
 import '../pages/home.dart';
 import '../pages/userprofile.dart';
-
+import '../pages/lesson_form.dart';
+import '../pages/tournament_form.dart';
 
 
 void main() async {
@@ -27,6 +28,8 @@ class MyApp extends StatelessWidget {
         '/start': (context) => StartPage(),
         '/home': (context) => HomePage(),
         '/userprofile': (context) => UserProfilePage(),
+        '/LessonFormPage': (context) => LessonFormPage(),
+        '/TournamentPage': (context) => TournamentPage(),
         },
       debugShowCheckedModeBanner: false,
       title: 'Horse race manager',
