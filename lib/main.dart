@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'database/database.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import './models/user.dart';
 
+// debug code
+import 'service/users/user_crud.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await MongoDatabase.connect();
+
   runApp(const MyApp());
 }
 
@@ -122,7 +127,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () async {
+          deleteUser('6502b58c0cd13fba561e9a80');
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

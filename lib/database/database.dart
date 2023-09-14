@@ -3,17 +3,22 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class MongoDatabase {
-  static var db, userCollection, horseCollection, lessonCollection, meetingCollection, tournamentCollection;
+  static var db,
+      userCollection,
+      horseCollection,
+      lessonCollection,
+      meetingCollection,
+      tournamentCollection;
 
-  static connect () async {
+  static connect() async {
     db = await Db.create(dotenv.env['MONGODB_URI']!);
     await db.open();
     print("connected");
     userCollection = db.collection('users');
     horseCollection = db.collection('horses');
     lessonCollection = db.collection('lessons');
-    meetingCollection = db.collection('meeting');
-    tournamentCollection = db.collection('tournament');
+    meetingCollection = db.collection('meetings');
+    tournamentCollection = db.collection('tournaments');
   }
 
   static Future<List<Map<String, dynamic>>> getDocuments(connection) async {
@@ -45,5 +50,4 @@ class MongoDatabase {
   static Future<List<Map<String, dynamic>>> getTournaments() async {
     return await getDocuments(tournamentCollection);
   }
-
 }
