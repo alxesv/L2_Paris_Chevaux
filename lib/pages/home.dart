@@ -54,6 +54,22 @@ class HomePage extends StatelessWidget {
               onTap: () => _navigateTo(context, '/TournamentPage'),
             ),
             ListTile(
+              title: Text('all users'),
+              onTap: () => _navigateTo(context, '/UsersList'),
+            ),
+            ListTile(
+              title: Text('Meetings'),
+              onTap: () => _navigateTo(context, '/MeetingFormPage'),
+            ),
+            ListTile(
+              title: Text('horseslist'),
+              onTap: () => _navigateTo(context, '/horseslist'),
+            ),
+            ListTile(
+              title: Text('horse form'),
+              onTap: () => _navigateTo(context, '/horse_form'),
+            ),
+            ListTile(
               title: Text('User Profile'),
               onTap: () => _navigateTo(context, '/userprofile'),
             ),
