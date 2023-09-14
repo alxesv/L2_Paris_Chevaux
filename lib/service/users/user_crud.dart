@@ -26,11 +26,11 @@ Future<bool> login(String username, String password) async {
   }
 }
 
-void saveUser(User user) async {
+Future<void> saveUser(User user) async {
   await MongoDatabase.userCollection.insertMany([user.toMap()]);
 }
 
-void deleteUser(String id) async {
+Future<void> deleteUser(String id) async {
   await MongoDatabase.userCollection
       .deleteOne(where.id(ObjectId.fromHexString(id)));
 }
