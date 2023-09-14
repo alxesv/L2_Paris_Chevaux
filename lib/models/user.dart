@@ -5,12 +5,12 @@ class User {
   final String username;
   final String password;
   final String email;
-  final String role;
+  final bool admin;
   final String avatar;
   final String phone;
   final int age;
 
-  const User(this.id, this.username, this.password, this.email, this.role, this.avatar, this.phone, this.age);
+  const User(this.id, this.username, this.password, this.email, this.admin, this.avatar, this.phone, this.age);
 
   Map<String, dynamic> toMap() {
     return {
@@ -18,7 +18,7 @@ class User {
       'username': username,
       'password': password,
       'email': email,
-      'role': role,
+      'admin': admin,
       'avatar': avatar,
       'phone': phone,
       'age': age,
@@ -30,7 +30,7 @@ class User {
           username = map['username'],
           password = map['password'],
           email = map['email'],
-          role = map['role'],
+          admin = map['admin'],
           avatar = map['avatar'],
           phone = map['phone'],
           age = map['age'];

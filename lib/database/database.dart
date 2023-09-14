@@ -12,8 +12,8 @@ class MongoDatabase {
     userCollection = db.collection('users');
     horseCollection = db.collection('horses');
     lessonCollection = db.collection('lessons');
-    meetingCollection = db.collection('meeting');
-    tournamentCollection = db.collection('tournament');
+    meetingCollection = db.collection('meetings');
+    tournamentCollection = db.collection('tournaments');
   }
 
   static Future<List<Map<String, dynamic>>> getDocuments(connection) async {

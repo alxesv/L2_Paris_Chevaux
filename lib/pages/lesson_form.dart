@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 import '../service/lessons/lesson_crud.dart';
-import '../database/database.dart';
 import '../models/lesson.dart';
 
 String terrain = "Outdoor";

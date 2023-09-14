@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projet_chevaux/pages/tournament_form.dart';
 import 'database/database.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: TournamentPage(),
     );
   }
 }
