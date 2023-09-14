@@ -6,10 +6,11 @@ class Tournament {
   final String name;
   final String address;
   final String photo;
-  final DateTime datetime;
-  final List<User> participants;
+  final String date;
+  final String time;
+  final List<ObjectId> participants;
 
-  const Tournament(this.id, this.name, this.address, this.photo, this.datetime, this.participants);
+  const Tournament(this.id, this.name, this.address, this.photo, this.date, this.time, this.participants);
 
   Map<String, dynamic> toMap(){
       return {
@@ -17,7 +18,8 @@ class Tournament {
         'name': name,
         'address': address,
         'photo': photo,
-        'datetime': datetime,
+        'date': date,
+        'time': time,
         'participants': participants,
       };
     }
@@ -27,6 +29,7 @@ class Tournament {
         name = map['name'],
         address = map['address'],
         photo = map['photo'],
-        datetime = map['datetime'],
+        date = map['date'],
+        time = map['time'],
         participants = map['participants'];
 }

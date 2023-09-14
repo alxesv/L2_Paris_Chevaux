@@ -10,6 +10,7 @@ class User {
   final String phone;
   final int age;
 
+
   const User(
       {required this.id,
       required this.username,
@@ -32,6 +33,7 @@ class User {
       'age': age,
     };
   }
+
 
   User.fromMap(Map<String, dynamic> map)
       : id = map['_id'],

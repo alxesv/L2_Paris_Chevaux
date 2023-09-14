@@ -1,15 +1,25 @@
-// packages
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:projet_chevaux/database/database.dart';
 
-// config
-import '../../database/database.dart';
-
-// models
 import '../../models/user.dart';
 
-// --------------------------- actual code
+Future<bool> doesUserExist(String username) async {
+  final user = await MongoDatabase.userCollection.findOne(where.eq('username', username));
 
-// init db collection
+  return user != null;
+
+}
+
+Future<User> getUserId(String username) async {
+  final user = await MongoDatabase.userCollection.findOne(where.eq('username', username));
+
+  if (user != null){
+    return User.fromMap(user);
+  } else {
+    return Future.error('User not found');
+  }
+
+}
 
 Future<bool> login(String username, String password) async {
   var query =
