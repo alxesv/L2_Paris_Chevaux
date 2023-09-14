@@ -4,11 +4,13 @@ import 'package:mongo_dart/mongo_dart.dart' as M;
 import '../service/lessons/lesson_crud.dart';
 import '../database/database.dart';
 import '../models/lesson.dart';
+import '../../models/logs.dart';
+import '../service/logs/log_service.dart';
 
 String terrain = "Outdoor";
 late String date;
 late String time;
-String duration ="30 min";
+String duration = "30 min";
 String subject = "Dressage";
 
 class LessonFormPage extends StatelessWidget {
@@ -17,24 +19,22 @@ class LessonFormPage extends StatelessWidget {
 
   final TextEditingController _nameController = TextEditingController();
 
-
   _insert() async {
-    var lesson = Lesson(
-        M.ObjectId(),
-        _nameController.text,
-        terrain,
-        date,
-        time,
-        duration,
-        subject
-    );
+    var lesson = Lesson(M.ObjectId(), _nameController.text, terrain, date, time,
+        duration, subject);
+
+    await insertLesson(lesson);
+    await newLog(Logs(
+        id: M.ObjectId(),
+        time: DateTime.now(),
+        type: "lesson",
+        relative: lesson.id));
+
     await insertLesson(lesson);
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add a new lesson'),
@@ -51,18 +51,18 @@ class LessonFormPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextFormField(
-                      controller: _nameController,
-                      decoration: const InputDecoration(hintText: "Name"),
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      }),
-                      const SizedBox(height: 8),
-                          const RadioSelectTerrain(),
-                      const SizedBox(height: 8),
+                        controller: _nameController,
+                        decoration: const InputDecoration(hintText: "Name"),
+                        // The validator receives the text that the user has entered.
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        }),
+                    const SizedBox(height: 8),
+                    const RadioSelectTerrain(),
+                    const SizedBox(height: 8),
                     const dateField(),
                     const SizedBox(height: 8),
                     const timefield(),
@@ -98,13 +98,12 @@ class LessonFormPage extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
 
 enum TerrainType { outdoor, indoor }
 
-class RadioSelectTerrain extends StatefulWidget{
+class RadioSelectTerrain extends StatefulWidget {
   const RadioSelectTerrain({super.key});
 
   @override
@@ -162,52 +161,44 @@ class dateField extends StatefulWidget {
 }
 
 class _dateFieldState extends State<dateField> {
-
   final TextEditingController _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _dateController,
-      decoration: const InputDecoration(
+        controller: _dateController,
+        decoration: const InputDecoration(
+            icon: Icon(Icons.calendar_today), labelText: "Enter Date"),
+        readOnly: true,
+        onTap: () async {
+          DateTime? pickedDate = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2101));
 
-          icon: Icon(Icons.calendar_today),
-          labelText: "Enter Date"
-      ),
-      readOnly: true,
-      onTap: () async {
-        DateTime? pickedDate = await showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime.now(),
-            lastDate: DateTime(2101)
-        );
+          if (pickedDate != null) {
+            String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
 
-        if(pickedDate != null ){
-          String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-
-          setState(() {
-            _dateController.text = formattedDate;
-            date = formattedDate;
-          });
-        }else{
-          print("Date is not selected");
-        }
-      },
-    validator: (value) {
-      if (value == null || value.isEmpty) {
-        return 'Please enter some text';
-      }
-    }
-    );
-
+            setState(() {
+              _dateController.text = formattedDate;
+              date = formattedDate;
+            });
+          } else {
+            print("Date is not selected");
+          }
+        },
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter some text';
+          }
+        });
   }
-
 }
 
 enum DurationType { half, full }
 
-class RadioSelectDuration extends StatefulWidget{
+class RadioSelectDuration extends StatefulWidget {
   const RadioSelectDuration({super.key});
 
   @override
@@ -259,7 +250,7 @@ class _RadioSelectDurationState extends State<RadioSelectDuration> {
 
 enum SubjectType { dressage, jumping, flatwork }
 
-class RadioSelectSubject extends StatefulWidget{
+class RadioSelectSubject extends StatefulWidget {
   const RadioSelectSubject({super.key});
 
   @override
@@ -329,40 +320,35 @@ class timefield extends StatefulWidget {
   _timefieldState createState() => _timefieldState();
 }
 
-class _timefieldState extends State<timefield>{
+class _timefieldState extends State<timefield> {
   final TextEditingController _timeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _timeController,
-      decoration: const InputDecoration(
-          icon: Icon(Icons.access_time),
-          labelText: "Enter Time"
-      ),
-      readOnly: true,
-      onTap: () async {
-        TimeOfDay? pickedTime = await showTimePicker(
-            context: context,
-            initialTime: TimeOfDay.now()
-        );
+        controller: _timeController,
+        decoration: const InputDecoration(
+            icon: Icon(Icons.access_time), labelText: "Enter Time"),
+        readOnly: true,
+        onTap: () async {
+          TimeOfDay? pickedTime = await showTimePicker(
+              context: context, initialTime: TimeOfDay.now());
 
-        if(pickedTime != null ){
-          String formattedTime = pickedTime.format(context);
+          if (pickedTime != null) {
+            String formattedTime = pickedTime.format(context);
 
-          setState(() {
-            _timeController.text = formattedTime;
-            time = formattedTime;
-          });
-        }else{
-          print("Time is not selected");
-        }
-      },
+            setState(() {
+              _timeController.text = formattedTime;
+              time = formattedTime;
+            });
+          } else {
+            print("Time is not selected");
+          }
+        },
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter some text';
           }
-        }
-    );
+        });
   }
 }

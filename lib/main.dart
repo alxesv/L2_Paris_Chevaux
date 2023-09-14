@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:projet_chevaux/pages/lesson_form.dart';
 import '../pages/start.dart';
 import '../pages/login.dart';
 import '../pages/register.dart';
 import '../database/database.dart';
 import '../pages/home.dart';
-
-
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -14,6 +13,7 @@ void main() async {
   await MongoDatabase.connect();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -25,16 +25,18 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/start': (context) => StartPage(),
         '/home': (context) => HomePage(),
-        },
+      },
+      debugShowCheckedModeBanner: false,
       title: 'Horse race manager',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'COURSE MANAGER DE OUF'),
+      home: LessonFormPage(),
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -48,9 +50,3 @@ class _MyHomePageState extends State<MyHomePage> {
     return const StartPage();
   }
 }
-
-
-
-
-
-
