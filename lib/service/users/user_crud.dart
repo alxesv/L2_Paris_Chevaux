@@ -1,15 +1,34 @@
-// packages
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:projet_chevaux/database/database.dart';
 
-// config
-import '../../database/database.dart';
-
-// models
 import '../../models/user.dart';
 
-// --------------------------- actual code
+Future<bool> doesUserExist(String username) async {
+  final user = await MongoDatabase.userCollection.findOne(where.eq('username', username));
 
-// init db collection
+  return user != null;
+
+}
+
+
+Future<bool> isAdmin (String username) async {
+  final user = await MongoDatabase.userCollection.findOne(where.eq('username', username));
+  print(user['admin']);
+  return user['admin'] == true;
+
+}
+
+
+Future<User> getUserId(String username) async {
+  final user = await MongoDatabase.userCollection.findOne(where.eq('username', username));
+
+  if (user != null){
+    return User.fromMap(user);
+  } else {
+    return Future.error('User not found');
+  }
+
+}
 
 Future<bool> login(String username, String password) async {
   var query =
@@ -31,6 +50,16 @@ Future<void> saveUser(User user) async {
   await MongoDatabase.userCollection.insertMany([user.toMap()]);
 }
 
+ Future<User> readUser(String id) async {
+   var req = await MongoDatabase.userCollection.findOne(where.eq("id", id));
+
+   return User(
+       id: req.id,
+       username: req.username,
+       password: req.password,
+       email: req.email,
+       avatar: req.avatar);
+ }
 Future<void> deleteUser(String id) async {
   await MongoDatabase.userCollection
       .deleteOne(where.id(ObjectId.fromHexString(id)));

@@ -54,7 +54,7 @@ class Comments {
   }
 
   Comments.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
+      : id = map['_id'],
         comment = map['comment'],
         author = map['author'],
         datetime = map['datetime'];

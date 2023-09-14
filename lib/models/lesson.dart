@@ -24,7 +24,7 @@ class Lesson {
     }
 
   Lesson.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
+      : id = map['_id'],
         name = map['name'],
         terrain = map['terrain'],
         date = map['date'],

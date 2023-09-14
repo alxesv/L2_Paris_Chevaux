@@ -1,3 +1,5 @@
+import '../../database/database.dart';
+
 import 'package:mongo_dart/mongo_dart.dart';
 
 class User {
@@ -9,6 +11,7 @@ class User {
   final String avatar;
   final String phone;
   final int age;
+
 
   const User(
       {required this.id,
@@ -33,6 +36,7 @@ class User {
     };
   }
 
+
   User.fromMap(Map<String, dynamic> map)
       : id = map['_id'],
         username = map['username'],
@@ -43,3 +47,33 @@ class User {
         phone = map['phone'],
         age = map['age'];
 }
+
+
+Future<User?> getCurrentUser(String username) async {
+  print("Searching for user: $username");
+  try {
+    var query = await MongoDatabase.userCollection.findOne({"username": username});
+    print("Query result: $query");  // For debugging
+
+    if (query != null) {
+      User currentUser = User(
+        id: query['_id'],
+        username: query['username'],
+        email: query['email'],
+        password: query['password'],
+        age: query['age'],
+        phone: query['phone'],
+        avatar: query['avatar'],
+      );
+      print("User found: ${currentUser.username}");  // For debugging
+      return currentUser;
+    } else {
+      print("User not found in database.");  // For debugging
+      return null;
+    }
+  } catch (e) {
+    print("Error fetching user: $e");
+    return null;
+  }
+}
+

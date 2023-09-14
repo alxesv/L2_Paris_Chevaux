@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import '../../models/user.dart';
 import '../../service/users/user_crud.dart';
-
 class RegisterPage extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _avatarController = TextEditingController();  // New Controller for Avatar
 
   void _register(BuildContext context) async {
     final username = _usernameController.text;
     final email = _emailController.text;
     final password = _passwordController.text;
+    final avatar = _avatarController.text;
 
     try {
       User newUser = User(
@@ -19,7 +20,7 @@ class RegisterPage extends StatelessWidget {
         username: username,
         email: email,
         password: password,
-        avatar: "https://i.pravatar.cc/150?u=$username",
+        avatar: avatar.isEmpty ? "https://i.pravatar.cc/150?u=$username" : avatar,  // Use input link if not empty
       );
 
       await saveUser(newUser);
@@ -49,6 +50,10 @@ class RegisterPage extends StatelessWidget {
               controller: _passwordController,
               decoration: InputDecoration(labelText: 'Password'),
               obscureText: true,
+            ),
+            TextField(  // New TextField for Avatar
+              controller: _avatarController,
+              decoration: InputDecoration(labelText: 'Avatar URL'),
             ),
             ElevatedButton(
               onPressed: () => _register(context),
