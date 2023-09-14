@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:projet_chevaux/pages/horseslist.dart';
+import 'package:projet_chevaux/pages/userslist.dart';
 import '../pages/start.dart';
 import '../pages/login.dart';
 import '../pages/register.dart';
@@ -46,7 +48,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const StartPage();
+    return const HorsesList();
   }
 }
 
