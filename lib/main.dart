@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:projet_chevaux/models/user.dart';
+import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'database/database.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:mongo_dart/mongo_dart.dart' as mongo;
+import './models/user.dart';
 
 // debug code
 import 'service/users/user_crud.dart';
@@ -130,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          var user = login("username", "passwor");
+          deleteUser('6502b58c0cd13fba561e9a80');
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
