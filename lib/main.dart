@@ -8,6 +8,7 @@ import '../pages/home.dart';
 import '../pages/userprofile.dart';
 
 
+
 void main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
+
       home: const MyHomePage(title: 'COURSE MANAGER DE OUF'),
     );
   }
@@ -47,7 +49,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    //return const StartPage();
     return const StartPage();
   }
 }

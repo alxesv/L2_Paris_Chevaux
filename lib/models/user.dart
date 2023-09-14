@@ -1,5 +1,5 @@
-
 import '../../database/database.dart';
+
 import 'package:mongo_dart/mongo_dart.dart';
 
 class User {
@@ -11,6 +11,7 @@ class User {
   final String avatar;
   final String phone;
   final int age;
+
 
   const User(
       {required this.id,
@@ -34,6 +35,7 @@ class User {
       'age': age,
     };
   }
+
 
   User.fromMap(Map<String, dynamic> map)
       : id = map['_id'],

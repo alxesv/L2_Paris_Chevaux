@@ -15,10 +15,10 @@ class MongoDatabase {
     await db.open();
     print("connected");
     userCollection = db.collection('users');
-    horseCollection = db.collection('horse');
-    lessonCollection = db.collection('lesson');
-    meetingCollection = db.collection('meeting');
-    tournamentCollection = db.collection('tournament');
+    horseCollection = db.collection('horses');
+    lessonCollection = db.collection('lessons');
+    meetingCollection = db.collection('meetings');
+    tournamentCollection = db.collection('tournaments');
   }
 
   static Future<List<Map<String, dynamic>>> getDocuments(connection) async {
