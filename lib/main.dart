@@ -5,8 +5,7 @@ import '../pages/login.dart';
 import '../pages/register.dart';
 import '../database/database.dart';
 import '../pages/home.dart';
-
-
+import '../pages/meeting_form.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -14,6 +13,7 @@ void main() async {
   await MongoDatabase.connect();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -25,16 +25,17 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/start': (context) => StartPage(),
         '/home': (context) => HomePage(),
-        },
+      },
       title: 'Horse race manager',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'COURSE MANAGER DE OUF'),
+      home: MeetingFormPage(),
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -48,9 +49,3 @@ class _MyHomePageState extends State<MyHomePage> {
     return const StartPage();
   }
 }
-
-
-
-
-
-
