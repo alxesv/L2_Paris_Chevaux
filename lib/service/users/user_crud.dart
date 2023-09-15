@@ -60,6 +60,15 @@ updateUser(User updatedUser) async {
 
 }
 
+Future<void> updatePassword(User user, String newPassword) async {
+  await MongoDatabase.userCollection.update(
+    where.id(user.id),
+    modify.set('password', newPassword),  // Please hash this password
+  );
+}
+
+
+
 Future<void> addFfe(String username, String ffe) async {
   await MongoDatabase.userCollection.update(
       where.eq("username", username), modify.set("ffe", ffe),
