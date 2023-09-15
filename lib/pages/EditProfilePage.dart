@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../models/user.dart';
 import '../../service/users/user_crud.dart';
+import 'EditPassword.dart';
+
 
 
 class EditProfilePage extends StatefulWidget {
@@ -92,10 +94,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   editedFFE = value!;
                 },
               ),
+              SizedBox(height: 30),
               ElevatedButton(
                 onPressed: _saveForm,
                 child: Text('Save Changes'),
               ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => EditPasswordPage(user: widget.user),
+                    ),
+                  );
+                },
+                child: Text('Edit password'),
+              ),
+
             ],
           ),
         ),
