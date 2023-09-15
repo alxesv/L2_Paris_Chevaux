@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
+import '../models/user.dart';
+
 class MongoDatabase {
   static var db,
       userCollection,
@@ -48,6 +50,7 @@ class MongoDatabase {
   static Future<List<Map<String, dynamic>>> getMeetings() async {
     return await getDocuments(meetingCollection);
   }
+
 
   static Future<List<Map<String, dynamic>>> getTournaments() async {
     return await getDocuments(tournamentCollection);

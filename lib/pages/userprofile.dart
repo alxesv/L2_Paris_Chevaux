@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../models/user.dart';
+import 'EditProfilePage.dart';
 
 import 'login.dart';
+
+
 
 class UserProfilePage extends StatefulWidget {
   @override
@@ -10,14 +13,22 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageState extends State<UserProfilePage> {
   void _editProfile(User user) {
-    print('Edit button clicked for ${user.username}');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProfilePage(user: user),
+      ),
+    ).then((_) {
+      setState(() {});
+    });
   }
+
 
   @override
   void initState() {
     super.initState();
     if (loggedusername.isEmpty) {
-      // Navigate the user back to login or show a message.
+      Navigator.pushNamed(context, '/login');
     }
   }
 
@@ -27,7 +38,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       appBar: AppBar(
         title: Text('User Profile'),
       ),
-      body: loggedusername.isNotEmpty // Ensure the username is not empty
+      body: loggedusername.isNotEmpty
           ? FutureBuilder<User?>(
               future: getCurrentUser(loggedusername),
               builder: (context, snapshot) {
@@ -49,7 +60,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         children: [
                           CircleAvatar(
                             radius: 100.0,
-                            backgroundImage: NetworkImage(user.avatar),  // Fetch avatar URL from the User object
+                            backgroundImage: NetworkImage(user.avatar),
                           ),
                           SizedBox(height: 30),
                           Text(
@@ -72,7 +83,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               fontSize: 20.0,
                             ),
                           ),
-
+                          SizedBox(height: 30),
+                          Text(
+                            'FFE : ${user.ffe}',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
                           ElevatedButton(
                             onPressed: () => _editProfile(user),
                             child: Text('Edit Profile'),
@@ -88,5 +105,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
               child: Text("No username found, please login again."),
             ),
     );
+
   }
 }

@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/LessonFormPage': (context) => LessonFormPage(),
         '/TournamentPage': (context) => TournamentPage(),
-        '/userprofile': (context) => UserProfilePage(),
         '/horse_form': (context) => HorseFormPage(),
         '/horseslist': (context) => HorsesList(),
         '/MeetingFormPage': (context) => MeetingFormPage(),
