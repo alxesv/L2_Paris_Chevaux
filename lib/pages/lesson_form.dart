@@ -19,13 +19,13 @@ class LessonFormPage extends StatelessWidget {
 
   _insert() async {
     var lesson = Lesson(
-        M.ObjectId(),
-        _nameController.text,
-        terrain,
-        date,
-        time,
-        duration,
-        subject
+        id: M.ObjectId(),
+        name: _nameController.text,
+        terrain: terrain,
+        date: date,
+        time: time,
+        duration: duration,
+        subject: subject
     );
     await insertLesson(lesson);
   }

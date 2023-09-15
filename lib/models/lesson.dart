@@ -8,8 +8,9 @@ class Lesson {
   final String time;
   final String duration;
   final String subject;
+  final bool approved;
 
-  const Lesson(this.id, this.name, this.terrain, this.date, this.time, this.duration, this.subject);
+  const Lesson({required this.id, required this.name, required this.terrain, required this.date, required this.time, required this.duration, required this.subject, this.approved = false});
 
   Map<String, dynamic> toMap(){
       return {
@@ -20,6 +21,7 @@ class Lesson {
         'time': time,
         'duration': duration,
         'subject': subject,
+        'approved': approved,
       };
     }
 
@@ -30,6 +32,6 @@ class Lesson {
         date = map['date'],
         time = map['time'],
         duration = map['duration'],
-        subject = map['subject'];
-
+        subject = map['subject'],
+        approved = map['approved'];
 }
