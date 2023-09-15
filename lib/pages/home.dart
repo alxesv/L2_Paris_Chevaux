@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'login.dart';
-import '../../models/user.dart';
-import 'start.dart';
-import 'userprofile.dart';
 
-import 'package:flutter/material.dart';
-// Add other necessary imports here
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,7 +11,7 @@ class HomePage extends StatelessWidget {
   }
 
   void _logout(BuildContext context) {
-    isloggedin = false;  // Make sure isloggedin is defined globally or managed properly
+    isloggedin = false;
     Navigator.pushNamed(context, '/start');
   }
 
@@ -26,7 +21,13 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Home"),
         actions: [
-          // ... Your existing AppBar actions
+          TextButton(
+            onPressed: () => _logout(context),
+            child: Text(
+              "Logout",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
         ],
       ),
       drawer: Drawer(
@@ -92,7 +93,6 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          // ... Add more widgets or code here
         ],
       ),
     );

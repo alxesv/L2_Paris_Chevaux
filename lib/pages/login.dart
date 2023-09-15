@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import '../service/users/user_crud.dart';
 
 bool isloggedin = false;
@@ -71,11 +71,10 @@ class LoginPage extends StatelessWidget {
                   'SUBMIT',
                   style: TextStyle(fontSize: 30),
                 ),
-                onPressed: () async {  // Note that I've made this asynchronous
+                onPressed: () async {
                   if (_formKey.currentState?.validate() == true) {
                     _formKey.currentState?.save();
 
-                    // Call your login function and pass the username and password
                     bool isAuthenticated = await login(username, password);
 
                     if (isAuthenticated) {
@@ -90,8 +89,6 @@ class LoginPage extends StatelessWidget {
                       print(loggedusername);
                     } else {
                       print("Authentication failed!");
-                      // Here you could show a dialog or a SnackBar to inform the user
-                      // that authentication failed
                     }
                   }
                 },
