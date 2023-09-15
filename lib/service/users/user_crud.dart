@@ -51,14 +51,12 @@ updateUser(User updatedUser) async {
   query['phone'] = updatedUser.phone;
   query['age'] = updatedUser.age;
   query['ffe'] = updatedUser.ffe;
-  print("1");
   await MongoDatabase.userCollection.update(
       where.id(updatedUser.id), modify.set(
     'avatar', updatedUser.avatar,).set(
     'phone', updatedUser.phone,).set(
     'age', updatedUser.age,).set(
     'ffe', updatedUser.ffe,),);
-  print("2");
 
 }
 
@@ -68,6 +66,7 @@ Future<void> addFfe(String username, String ffe) async {
       upsert: true);
   print("added ffe");
 }
+
 
 Future<void> saveUser(User user) async {
   await MongoDatabase.userCollection.insertMany([user.toMap()]);

@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'login.dart';
 
+import '../../models/user.dart';
+import 'start.dart';
+import 'userprofile.dart';
+import 'package:flutter/material.dart';
+// Add other necessary imports here
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -47,28 +52,40 @@ class HomePage extends StatelessWidget {
               onTap: () => _navigateTo(context, '/home'),
             ),
             ListTile(
-              title: Text('Lessons'),
+              title: Text('Add a lesson'),
               onTap: () => _navigateTo(context, '/LessonFormPage'),
             ),
             ListTile(
-              title: Text('Tournament'),
+              title: Text('Add a tournament'),
               onTap: () => _navigateTo(context, '/TournamentPage'),
             ),
             ListTile(
-              title: Text('all users'),
-              onTap: () => _navigateTo(context, '/UsersList'),
-            ),
-            ListTile(
-              title: Text('Meetings'),
+              title: Text('Add a meeting'),
               onTap: () => _navigateTo(context, '/MeetingFormPage'),
             ),
             ListTile(
-              title: Text('horseslist'),
-              onTap: () => _navigateTo(context, '/horseslist'),
+              title: Text('Add a horse'),
+              onTap: () => _navigateTo(context, '/horse_form'),
             ),
             ListTile(
-              title: Text('horse form'),
-              onTap: () => _navigateTo(context, '/horse_form'),
+              title: Text('Activity'),
+              onTap: () => _navigateTo(context, '/LogList'),
+            ),
+            ListTile(
+              title: Text('Meeting list'),
+              onTap: () => _navigateTo(context, '/MeetingList'),
+            ),
+            ListTile(
+              title: Text('Lesson list'),
+              onTap: () => _navigateTo(context, '/LessonList'),
+            ),
+            ListTile(
+              title: Text('Users list'),
+              onTap: () => _navigateTo(context, '/UsersList'),
+            ),
+            ListTile(
+              title: Text('Horser list'),
+              onTap: () => _navigateTo(context, '/horseslist'),
             ),
             ListTile(
               title: Text('User Profile'),
@@ -81,19 +98,19 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: Center(
+        child:
+          Wrap(
+            direction: Axis.vertical,
             children: [
               const Text(
                 "Welcome to the home page",
                 style: TextStyle(fontSize: 30),
               ),
+              Image.network("https://cdn.pixabay.com/photo/2017/10/31/07/49/horses-2904536_640.jpg")
             ],
           ),
-        ],
+          // ... Add more widgets or code here
       ),
     );
   }

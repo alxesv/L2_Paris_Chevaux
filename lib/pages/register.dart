@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import '../../models/user.dart';
+import '../../models/logs.dart';
 import '../../service/users/user_crud.dart';
+
+import '../service/logs/log_service.dart';
 
 class RegisterPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -32,6 +35,12 @@ class RegisterPage extends StatelessWidget {
       );
 
       await saveUser(newUser);
+      await newLog(Logs(
+          id: ObjectId(),
+          time: DateTime.now(),
+          type: "user",
+          relative: newUser.id,
+          message: '${newUser.username} has joined.'));
       Navigator.pushNamed(context, '/login');
     } catch (e) {
       print("An error occurred: $e");
