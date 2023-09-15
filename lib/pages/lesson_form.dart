@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 import '../service/lessons/lesson_crud.dart';
-import '../database/database.dart';
 import '../models/lesson.dart';
 import '../../models/logs.dart';
 import '../service/logs/log_service.dart';
@@ -28,7 +27,9 @@ class LessonFormPage extends StatelessWidget {
         id: M.ObjectId(),
         time: DateTime.now(),
         type: "lesson",
-        relative: lesson.id));
+        relative: lesson.id,
+        message:
+            'New lesson ${lesson.name} has been added for ${lesson.date} at ${lesson.time}.'));
 
     await insertLesson(lesson);
   }

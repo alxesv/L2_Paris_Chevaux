@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:projet_chevaux/pages/lesson_form.dart';
+import 'package:projet_chevaux/pages/horse_form.dart';
+import 'package:projet_chevaux/pages/horseslist.dart';
+import 'package:projet_chevaux/pages/userslist.dart';
 import '../pages/start.dart';
 import '../pages/login.dart';
 import '../pages/register.dart';
 import '../database/database.dart';
 import '../pages/home.dart';
+import '../pages/meeting_form.dart';
+import '../pages/userprofile.dart';
+import '../pages/loglist.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -22,9 +28,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/login': (context) => LoginPage(),
-        '/register': (context) => RegisterPage(),
+        '/register': (context) => LogList(),
         '/start': (context) => StartPage(),
         '/home': (context) => HomePage(),
+        '/userprofile': (context) => UserProfilePage(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Horse race manager',
@@ -32,7 +39,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: LessonFormPage(),
+      home: MyHomePage(title: "title"),
     );
   }
 }
@@ -47,6 +54,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const StartPage();
+    return StartPage();
   }
 }

@@ -8,6 +8,7 @@ import '../../database/database.dart';
 import '../../models/logs.dart';
 
 Future<void> newLog(Logs log) async {
-  print(log);
+  print(log.toMap());
+
   await MongoDatabase.logsCollection.insertAll([log.toMap()]);
 }

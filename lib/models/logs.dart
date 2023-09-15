@@ -11,12 +11,15 @@ class Logs {
   final DateTime time;
   final String type;
   final ObjectId relative;
+  final String message;
 
-  const Logs(
-      {required this.id,
-      required this.time,
-      required this.type,
-      required this.relative});
+  const Logs({
+    required this.id,
+    required this.time,
+    required this.type,
+    required this.relative,
+    required this.message,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,12 +27,14 @@ class Logs {
       'time': time,
       'type': type,
       'relative': relative,
+      'message': message,
     };
   }
 
   Logs.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
+      : id = map['_id'],
         time = map['time'],
         type = map['type'],
-        relative = map['relative'];
+        relative = map['relative'],
+        message = map['message'];
 }

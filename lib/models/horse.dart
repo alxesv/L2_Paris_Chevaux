@@ -8,7 +8,7 @@ class Horse {
   final String color;
   final String sex;
   final String photo;
-  final Enum speciality;
+  final String speciality;
 
   const Horse(this.id, this.name, this.age, this.breed, this.color, this.sex, this.photo, this.speciality);
 
@@ -26,7 +26,7 @@ class Horse {
   }
 
   Horse.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
+      : id = map['_id'],
         name = map['name'],
         age = map['age'],
         breed = map['breed'],
