@@ -9,6 +9,5 @@ insertHorse(Horse horse) async {
 }
 
 Future<void> deleteHorse(String id) async {
-  await MongoDatabase.horseCollection;
-      .deleteOne(where.id(ObjectId.fromHexString(id)));
+  await MongoDatabase.horseCollection.deleteOne(where.id(ObjectId.fromHexString(id)));
 }
