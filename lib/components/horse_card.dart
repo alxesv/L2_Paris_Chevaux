@@ -21,7 +21,7 @@ class HorseCard extends StatelessWidget {
           return const Icon(Icons.error);
         },),
         title: Text(horse.name),
-        subtitle: Text(horse.breed),
+        subtitle: Text('breed : ${horse.breed}, color : ${horse.color} age : ${horse.age} speciality : ${horse.speciality}'),
         // if user is admin
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

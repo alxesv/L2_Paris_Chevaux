@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
               onTap: () => _navigateTo(context, '/UsersList'),
             ),
             ListTile(
-              title: Text('Horser list'),
+              title: Text('Horses list'),
               onTap: () => _navigateTo(context, '/horseslist'),
             ),
             ListTile(
