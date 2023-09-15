@@ -31,8 +31,7 @@ class _MeetingListState extends State<MeetingList>{
           title: const Text('Meetings List'),
           backgroundColor: Colors.redAccent,
         ),
-        body:Column (children: [
-          FutureBuilder(
+        body:FutureBuilder(
             future: MongoDatabase.getMeetings(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
@@ -63,7 +62,6 @@ class _MeetingListState extends State<MeetingList>{
               }
             },
           ),
-        ],)
     );
   }
 }

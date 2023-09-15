@@ -5,6 +5,7 @@ import '../service/tournament/tournament_crud.dart';
 import '../models/tournament.dart';
 import '../models/user.dart';
 import '../service/users/user_crud.dart';
+import '../pages/login.dart';
 import '../../models/logs.dart';
 import '../service/logs/log_service.dart';
 
@@ -21,6 +22,7 @@ class TournamentPage extends StatelessWidget {
   final TextEditingController _photoController = TextEditingController();
   final TextEditingController _participantsController = TextEditingController();
 
+
   _insert() async {
     var tournament = Tournament(
         M.ObjectId(),
@@ -29,7 +31,9 @@ class TournamentPage extends StatelessWidget {
         _photoController.text,
         date,
         time,
-        participants);
+        participants
+    );
+    insertTournament(tournament);
     await newLog(Logs(
         id: M.ObjectId(),
         time: DateTime.now(),
@@ -44,6 +48,8 @@ class TournamentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _participantsController.text = '$loggedusername,';
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add a new tournament'),
@@ -94,35 +100,40 @@ class TournamentPage extends StatelessWidget {
                     const SizedBox(height: 8),
                     const timefield(),
                     const SizedBox(height: 8),
-                    TextFormField(
-                      controller: _participantsController,
-                      decoration: const InputDecoration(
-                          icon: Icon(Icons.person),
-                          labelText:
-                              "Enter Participants usernames separated by a comma"),
-                      onSaved: (value) {
-                        if (value != null && value.isNotEmpty) {
-                          List<String> usernames = value.split(',');
-                          usernames.forEach((username) async {
-                            try {
-                              bool exists = await doesUserExist(username);
-                              if (exists) {
-                                User user = await getUserId(username);
-                                participants.add(user.id);
-                                _insert();
-                              }
-                            } catch (e) {
-                              print(e);
-                            }
-                          });
+            TextFormField(
+              controller: _participantsController,
+              decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  labelText: "Enter Participants usernames separated by a comma"
+              ),
+              onSaved:
+                  (value) async {
+                if (value != null && value.isNotEmpty) {
+                  List<String> usernames = value.split(',');
+                  for (int i = 0; i < usernames.length; i++) {
+                    try {
+                      bool exists = await doesUserExist(usernames[i]);
+                      if (exists) {
+                        User user = await getUserId(usernames[i]);
+                        participants.add(user.id);
+                        if (i == usernames.length - 1) {
+                          _insert();
+                          print("Tournament added");
                         }
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                      },
-                    )
+                      }
+                    }catch(e){
+                      print(e);
+                    }
+                  }
+                }
+              }
+              ,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+              },
+            )
                   ]),
             ),
             Row(

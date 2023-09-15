@@ -31,8 +31,7 @@ class _LessonListState extends State<LessonList>{
         title: const Text('Lessons List'),
         backgroundColor: Colors.redAccent,
       ),
-      body:Column (children: [
-        FutureBuilder(
+      body:FutureBuilder(
           future: MongoDatabase.getLessons(),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
@@ -63,7 +62,6 @@ class _LessonListState extends State<LessonList>{
             }
           },
         ),
-      ],)
     );
   }
 }

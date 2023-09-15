@@ -31,7 +31,7 @@ class _TournamentListState extends State<TournamentList>{
           title: const Text('Tournaments List'),
           backgroundColor: Colors.redAccent,
         ),
-        body:Column (children: [
+        body:
           FutureBuilder(
             future: MongoDatabase.getTournaments(),
             builder: (context, AsyncSnapshot snapshot) {
@@ -39,7 +39,6 @@ class _TournamentListState extends State<TournamentList>{
                 tournaments = snapshot.data.map((e) => Tournament.fromMap(e)).toList();
 
                 return ListView.builder(
-                  shrinkWrap: true,
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
                     return TournamentCard(tournament: tournaments[index], delete: () {
@@ -58,7 +57,6 @@ class _TournamentListState extends State<TournamentList>{
               }
             },
           ),
-        ],)
     );
   }
 }
