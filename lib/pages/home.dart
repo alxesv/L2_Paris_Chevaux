@@ -91,20 +91,19 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: Center(
+        child:
+          Wrap(
+            direction: Axis.vertical,
             children: [
               const Text(
                 "Welcome to the home page",
                 style: TextStyle(fontSize: 30),
               ),
+              Image.network("https://cdn.pixabay.com/photo/2017/10/31/07/49/horses-2904536_640.jpg")
             ],
           ),
           // ... Add more widgets or code here
-        ],
       ),
     );
   }
