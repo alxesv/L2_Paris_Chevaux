@@ -4,6 +4,7 @@ import 'package:projet_chevaux/pages/lesson_form.dart';
 import 'package:projet_chevaux/pages/lessonlist.dart';
 import 'package:projet_chevaux/pages/horse_form.dart';
 import 'package:projet_chevaux/pages/horseslist.dart';
+import 'package:projet_chevaux/pages/meetinglist.dart';
 import 'package:projet_chevaux/pages/userslist.dart';
 import '../pages/start.dart';
 import '../pages/login.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         '/horseslist': (context) => HorsesList(),
         '/MeetingFormPage': (context) => MeetingFormPage(),
         '/UsersList': (context) => UsersList(),
+        '/LogList': (context) => LogList(),
+        '/LessonList': (context) => LessonList(),
+        '/MeetingList': (context) => MeetingList(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Horse race manager',
