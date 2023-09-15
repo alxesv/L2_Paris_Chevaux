@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
             ),
             ListTile(
               title: Text('User Profile'),
-              onTap: () => _navigateTo(context, '/userprofile'),
+              onTap: () => _navigateTo(context, '/UserProfile'),
             ),
             ListTile(
               title: Text('Logout'),

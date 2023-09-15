@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/LessonList': (context) => LessonList(),
         '/MeetingList': (context) => MeetingList(),
         '/TournamentList': (context) => TournamentList(),
+        '/UserProfile': (context) => UserProfilePage(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Horse race manager',
