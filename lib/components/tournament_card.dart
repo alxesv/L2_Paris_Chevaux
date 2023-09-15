@@ -5,9 +5,9 @@ import '../pages/login.dart';
 
 
 class TournamentCard extends StatelessWidget {
-  const TournamentCard({super.key, required this.tournament, required this.delete});
+  const TournamentCard({super.key, required this.tournament, required this.delete, required this.join});
   final Tournament tournament;
-  final Function delete;
+  final Function delete, join;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,15 @@ class TournamentCard extends StatelessWidget {
                     delete();
                   },
                 ),
+              ], if (!tournament.participants.contains(currentId)) ...[
+                GestureDetector(
+                  child: const Icon(Icons.add),
+                  onTap: () {
+                    join();
+                  },
+                ),
+              ]else ...[
+                const Icon(Icons.check),
               ]
               ],
             ),
