@@ -18,8 +18,9 @@ class MeetingFormPage extends StatelessWidget {
   final TextEditingController _addressController = TextEditingController();
 
   _insert() async {
-    var meeting = Meeting(M.ObjectId(), _photoController.text,
-        _nameController.text, type, _addressController.text, date);
+    var meeting = Meeting(
+        id: M.ObjectId(), photo: _photoController.text,
+        name: _nameController.text, type: type, address:_addressController.text, date:date);
     saveMeeting(meeting);
   }
 

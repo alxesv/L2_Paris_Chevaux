@@ -8,11 +8,10 @@ class Meeting {
   final String name;
   final String type;
   final String address;
-  final List<ObjectId> comments;
+  final bool approved;
 
-  const Meeting(
-      this.id, this.photo, this.name, this.type, this.address, this.date,
-      [this.comments = const <ObjectId>[]]);
+  const Meeting({
+      required this.id, required this.photo, required this.name, required this.type, required this.address, required this.date, this.approved = false});
 
   Map<String, dynamic> toMap() {
     return {
@@ -21,21 +20,22 @@ class Meeting {
       'name': name,
       'type': type,
       'address': address,
-      'comments': comments,
       'date': date,
+      'approved': approved,
     };
   }
 
   Meeting.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
+      : id = map['_id'],
         photo = map['photo'],
         name = map['name'],
         type = map['type'],
         address = map['address'],
-        comments = map['comments'],
-        date = map['date'];
+        date = map['date'],
+        approved = map['approved'];
 }
 
+/*
 class Comments {
   final ObjectId id;
   final String comment;
@@ -59,3 +59,4 @@ class Comments {
         author = map['author'],
         datetime = map['datetime'];
 }
+*/
