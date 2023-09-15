@@ -135,7 +135,7 @@ class TournamentPage extends StatelessWidget {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState?.save();
-                      //Navigator.pop(context, 'Add');
+                      Navigator.pop(context, 'Add');
                     }
                   },
                   child: const Text("Add"),
