@@ -34,7 +34,7 @@ class LessonFormPage extends StatelessWidget {
         type: "lesson",
         relative: lesson.id,
         message:
-            'New lesson ${lesson.name} has been added for ${lesson.date} at ${lesson.time}.'));
+            'New lesson :  ${lesson.name} has been added for ${lesson.date} at ${lesson.time}.'));
 
     await insertLesson(lesson);
   }

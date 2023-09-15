@@ -29,7 +29,7 @@ class MeetingFormPage extends StatelessWidget {
         type: "meeting",
         relative: meeting.id,
         message:
-            'New meeting ${meeting.name} has been planned for ${meeting.date}.'));
+            'New meeting  : ${meeting.name} has been planned for ${meeting.date}.'));
     saveMeeting(meeting);
   }
 
