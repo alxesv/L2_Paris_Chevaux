@@ -1,11 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:mongo_dart/mongo_dart.dart' as M;
+import '../models/user.dart';
 import '../service/users/user_crud.dart';
 
 bool isloggedin = false;
 String loggedusername = '';
 bool isadmin = false;
-
+late M.ObjectId currentId;
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -82,8 +84,12 @@ class LoginPage extends StatelessWidget {
                       print('username: $username' + " Connected");
                       isloggedin = true;
                       loggedusername = username;
+                      User user = await getUserId(username);
+                      currentId = user.id;
                       if (await isAdmin(username)) {
                         isadmin = true;
+                      }else {
+                        isadmin = false;
                       }
                       print(isloggedin);
                       print(loggedusername);
