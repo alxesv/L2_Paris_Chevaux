@@ -6,6 +6,8 @@ import '../models/tournament.dart';
 import '../models/user.dart';
 import '../service/users/user_crud.dart';
 import '../pages/login.dart';
+import '../../models/logs.dart';
+import '../service/logs/log_service.dart';
 
 late String date;
 late String time;
@@ -21,7 +23,7 @@ class TournamentPage extends StatelessWidget {
   final TextEditingController _participantsController = TextEditingController();
 
 
-  _insert() {
+  _insert() async {
     var tournament = Tournament(
         M.ObjectId(),
         _nameController.text,
@@ -32,10 +34,17 @@ class TournamentPage extends StatelessWidget {
         participants
     );
     insertTournament(tournament);
+    await newLog(Logs(
+        id: M.ObjectId(),
+        time: DateTime.now(),
+        type: "tournament",
+        relative: tournament.id,
+        message:
+            'New tournament : ${tournament.name} has been planned for ${tournament.date} at ${tournament.time}.'));
+    await insertTournament(tournament);
     _formKey.currentState?.reset();
     participants = [];
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +87,8 @@ class TournamentPage extends StatelessWidget {
                     const SizedBox(height: 8),
                     TextFormField(
                         controller: _photoController,
-                        decoration: const InputDecoration(hintText: "Photo url"),
+                        decoration:
+                            const InputDecoration(hintText: "Photo url"),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
@@ -150,10 +160,8 @@ class TournamentPage extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
-
 
 class dateField extends StatefulWidget {
   const dateField({super.key});
@@ -163,7 +171,6 @@ class dateField extends StatefulWidget {
 }
 
 class _dateFieldState extends State<dateField> {
-
   final TextEditingController _dateController = TextEditingController();
 
   @override
@@ -171,27 +178,23 @@ class _dateFieldState extends State<dateField> {
     return TextFormField(
         controller: _dateController,
         decoration: const InputDecoration(
-
-            icon: Icon(Icons.calendar_today),
-            labelText: "Enter Date"
-        ),
+            icon: Icon(Icons.calendar_today), labelText: "Enter Date"),
         readOnly: true,
         onTap: () async {
           DateTime? pickedDate = await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
               firstDate: DateTime.now(),
-              lastDate: DateTime(2101)
-          );
+              lastDate: DateTime(2101));
 
-          if(pickedDate != null ){
+          if (pickedDate != null) {
             String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
 
             setState(() {
               _dateController.text = formattedDate;
               date = formattedDate;
             });
-          }else{
+          } else {
             print("Date is not selected");
           }
         },
@@ -199,11 +202,8 @@ class _dateFieldState extends State<dateField> {
           if (value == null || value.isEmpty) {
             return 'Please enter some text';
           }
-        }
-    );
-
+        });
   }
-
 }
 
 class timefield extends StatefulWidget {
@@ -213,7 +213,7 @@ class timefield extends StatefulWidget {
   _timefieldState createState() => _timefieldState();
 }
 
-class _timefieldState extends State<timefield>{
+class _timefieldState extends State<timefield> {
   final TextEditingController _timeController = TextEditingController();
 
   @override
@@ -221,24 +221,20 @@ class _timefieldState extends State<timefield>{
     return TextFormField(
         controller: _timeController,
         decoration: const InputDecoration(
-            icon: Icon(Icons.access_time),
-            labelText: "Enter Time"
-        ),
+            icon: Icon(Icons.access_time), labelText: "Enter Time"),
         readOnly: true,
         onTap: () async {
           TimeOfDay? pickedTime = await showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now()
-          );
+              context: context, initialTime: TimeOfDay.now());
 
-          if(pickedTime != null ){
+          if (pickedTime != null) {
             String formattedTime = pickedTime.format(context);
 
             setState(() {
               _timeController.text = formattedTime;
               time = formattedTime;
             });
-          }else{
+          } else {
             print("Time is not selected");
           }
         },
@@ -246,7 +242,6 @@ class _timefieldState extends State<timefield>{
           if (value == null || value.isEmpty) {
             return 'Please enter some text';
           }
-        }
-    );
+        });
   }
 }
