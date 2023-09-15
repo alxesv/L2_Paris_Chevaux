@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 
 import 'login.dart';
 import '../../models/user.dart';
+import 'start.dart';
+import 'userprofile.dart';
+import 'package:flutter/material.dart';
+// Add other necessary imports here
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  void _logout(BuildContext context) {
-    isloggedin = false;
-    Navigator.pushNamed(context, '/start');
+  void _navigateTo(BuildContext context, String routeName) {
+    Navigator.pushNamed(context, routeName);
   }
 
-  void _userprofile(BuildContext context) {
-    Navigator.pushNamed(context, '/userprofile');
+  void _logout(BuildContext context) {
+    isloggedin = false;  // Make sure isloggedin is defined globally or managed properly
+    Navigator.pushNamed(context, '/start');
   }
 
   @override
@@ -21,45 +25,62 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Home"),
         actions: [
-          FutureBuilder<User?>(
-            future: getCurrentUser(
-                loggedusername), // Assuming getCurrentUser fetches the User object by username
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return IconButton(
-                  onPressed: () => _logout(context),
-                  icon: Icon(Icons.logout),
-                );
-              } else if (!snapshot.hasData || snapshot.data == null) {
-                return IconButton(
-                  onPressed: () => _logout(context),
-                  icon: Icon(Icons.logout),
-                );
-              } else {
-                User user = snapshot.data!;
-                return Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => _userprofile(context),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(user
-                            .avatar), // Fetch avatar URL from the User object
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () => _logout(context),
-                      icon: Icon(Icons.logout),
-                    ),
-                  ],
-                );
-              }
-            },
-          ),
+
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Text('Navigation'),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.red, Colors.lightBlueAccent],
+                  stops: [0.0, 1.0],
+                )
+              ),
+            ),
+            ListTile(
+              title: Text('Home'),
+              onTap: () => _navigateTo(context, '/home'),
+            ),
+            ListTile(
+              title: Text('Lessons'),
+              onTap: () => _navigateTo(context, '/LessonFormPage'),
+            ),
+            ListTile(
+              title: Text('Tournament'),
+              onTap: () => _navigateTo(context, '/TournamentPage'),
+            ),
+            ListTile(
+              title: Text('all users'),
+              onTap: () => _navigateTo(context, '/UsersList'),
+            ),
+            ListTile(
+              title: Text('Meetings'),
+              onTap: () => _navigateTo(context, '/MeetingFormPage'),
+            ),
+            ListTile(
+              title: Text('horseslist'),
+              onTap: () => _navigateTo(context, '/horseslist'),
+            ),
+            ListTile(
+              title: Text('horse form'),
+              onTap: () => _navigateTo(context, '/horse_form'),
+            ),
+            ListTile(
+              title: Text('User Profile'),
+              onTap: () => _navigateTo(context, '/userprofile'),
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () => _navigateTo(context, '/login'),
+            ),
+          ],
+        ),
+      ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,6 +91,7 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
+          // ... Add more widgets or code here
         ],
       ),
     );

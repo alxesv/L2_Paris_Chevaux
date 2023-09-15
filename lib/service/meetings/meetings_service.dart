@@ -16,8 +16,8 @@ Future<Meeting> getMeeting(String id) async {
   var query = await MongoDatabase.meetingCollection
       .findOne(where.id(ObjectId.fromHexString(id)));
 
-  var meeting = Meeting(query.id, query.photo, query.name, query.type,
-      query.address, query.comments);
+  var meeting = Meeting(id: query.id, photo: query.photo, name: query.name, type: query.type,
+      address: query.address, date: query.date);
   return meeting;
 }
 
@@ -36,4 +36,9 @@ Future<void> editMeeting(Meeting meeting) async {
 Future<void> deleteMeeting(String id) async {
   await MongoDatabase.meetingCollection
       .deleteOne(where.id(ObjectId.fromHexString(id)));
+}
+
+approveMeeting(String id) async {
+  await MongoDatabase.meetingCollection.update(
+      where.id(ObjectId.fromHexString(id)), modify.set('approved', true));
 }

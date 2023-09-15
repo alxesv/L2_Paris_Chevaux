@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:projet_chevaux/pages/lesson_form.dart';
+import 'package:projet_chevaux/pages/lessonlist.dart';
 import 'package:projet_chevaux/pages/horse_form.dart';
 import 'package:projet_chevaux/pages/horseslist.dart';
 import 'package:projet_chevaux/pages/userslist.dart';
@@ -12,6 +13,8 @@ import '../pages/home.dart';
 import '../pages/meeting_form.dart';
 import '../pages/userprofile.dart';
 import '../pages/loglist.dart';
+import '../pages/lesson_form.dart';
+import '../pages/tournament_form.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -31,7 +34,13 @@ class MyApp extends StatelessWidget {
         '/register': (context) => LogList(),
         '/start': (context) => StartPage(),
         '/home': (context) => HomePage(),
+        '/LessonFormPage': (context) => LessonFormPage(),
+        '/TournamentPage': (context) => TournamentPage(),
         '/userprofile': (context) => UserProfilePage(),
+        '/horse_form': (context) => HorseFormPage(),
+        '/horseslist': (context) => HorsesList(),
+        '/MeetingFormPage': (context) => MeetingFormPage(),
+        '/UsersList': (context) => UsersList(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Horse race manager',

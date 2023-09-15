@@ -19,10 +19,15 @@ class LessonFormPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
 
   _insert() async {
-    var lesson = Lesson(M.ObjectId(), _nameController.text, terrain, date, time,
-        duration, subject);
-
-    await insertLesson(lesson);
+    var lesson = Lesson(
+        id: M.ObjectId(),
+        name: _nameController.text,
+        terrain: terrain,
+        date: date,
+        time: time,
+        duration: duration,
+        subject: subject
+    );
     await newLog(Logs(
         id: M.ObjectId(),
         time: DateTime.now(),

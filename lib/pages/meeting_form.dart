@@ -20,9 +20,10 @@ class MeetingFormPage extends StatelessWidget {
   final TextEditingController _addressController = TextEditingController();
 
   _insert() async {
-    var meeting = Meeting(M.ObjectId(), _photoController.text,
-        _nameController.text, type, _addressController.text, date);
-    await newLog(Logs(
+    var meeting = Meeting(
+        id: M.ObjectId(), photo: _photoController.text,
+        name: _nameController.text, type: type, address:_addressController.text, date:date);
+        await newLog(Logs(
         id: M.ObjectId(),
         time: DateTime.now(),
         type: "meeting",
