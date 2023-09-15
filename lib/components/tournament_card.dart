@@ -5,9 +5,9 @@ import '../pages/login.dart';
 
 
 class TournamentCard extends StatelessWidget {
-  const TournamentCard({super.key, required this.tournament, required this.delete, required this.approve});
+  const TournamentCard({super.key, required this.tournament, required this.delete});
   final Tournament tournament;
-  final Function delete, approve;
+  final Function delete;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,11 @@ class TournamentCard extends StatelessWidget {
           elevation: 2.0,
           color: Colors.white,
           child: ListTile(
-            leading: Text(tournament.date.toString()),
+            leading: Image.network(tournament.photo, errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+              return const Icon(Icons.error);
+            },),
             title: Text(tournament.name),
-            subtitle: Text(tournament.address),
+            subtitle: Text('${tournament.address} on ${tournament.date}'),
             // if user is admin
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -28,12 +30,6 @@ class TournamentCard extends StatelessWidget {
                   child: const Icon(Icons.delete),
                   onTap: () {
                     delete();
-                  },
-                ),
-                GestureDetector(
-                  child: const Icon(Icons.approval),
-                  onTap: () {
-                    approve();
                   },
                 ),
               ]
