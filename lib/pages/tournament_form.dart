@@ -5,6 +5,7 @@ import '../service/tournament/tournament_crud.dart';
 import '../models/tournament.dart';
 import '../models/user.dart';
 import '../service/users/user_crud.dart';
+import '../pages/login.dart';
 
 late String date;
 late String time;
@@ -20,8 +21,7 @@ class TournamentPage extends StatelessWidget {
   final TextEditingController _participantsController = TextEditingController();
 
 
-
-  _insert() async {
+  _insert() {
     var tournament = Tournament(
         M.ObjectId(),
         _nameController.text,
@@ -31,7 +31,7 @@ class TournamentPage extends StatelessWidget {
         time,
         participants
     );
-    await insertTournament(tournament);
+    insertTournament(tournament);
     _formKey.currentState?.reset();
     participants = [];
   }
@@ -39,6 +39,7 @@ class TournamentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _participantsController.text = '$loggedusername,';
 
     return Scaffold(
       appBar: AppBar(
@@ -96,21 +97,24 @@ class TournamentPage extends StatelessWidget {
                   labelText: "Enter Participants usernames separated by a comma"
               ),
               onSaved:
-                  (value) {
+                  (value) async {
                 if (value != null && value.isNotEmpty) {
                   List<String> usernames = value.split(',');
-                  usernames.forEach((username) async {
+                  for (int i = 0; i < usernames.length; i++) {
                     try {
-                      bool exists = await doesUserExist(username);
-                      if(exists){
-                        User user = await getUserId(username);
+                      bool exists = await doesUserExist(usernames[i]);
+                      if (exists) {
+                        User user = await getUserId(usernames[i]);
                         participants.add(user.id);
-                        _insert();
+                        if (i == usernames.length - 1) {
+                          _insert();
+                          print("Tournament added");
+                        }
                       }
-                    } catch (e) {
+                    }catch(e){
                       print(e);
                     }
-                  });
+                  }
                 }
               }
               ,
