@@ -5,6 +5,7 @@ import '../service/lessons/lesson_crud.dart';
 import '../models/lesson.dart';
 import '../../models/logs.dart';
 import '../service/logs/log_service.dart';
+import '../pages/login.dart';
 
 String terrain = "Outdoor";
 late String date;
@@ -22,12 +23,12 @@ class LessonFormPage extends StatelessWidget {
     var lesson = Lesson(
         id: M.ObjectId(),
         name: _nameController.text,
+        host: loggedusername,
         terrain: terrain,
         date: date,
         time: time,
         duration: duration,
-        subject: subject
-    );
+        subject: subject);
     await newLog(Logs(
         id: M.ObjectId(),
         time: DateTime.now(),
