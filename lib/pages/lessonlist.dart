@@ -38,6 +38,7 @@ class _LessonListState extends State<LessonList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
           title: const Text('Lessons List'),
           backgroundColor: Colors.redAccent,
@@ -109,5 +110,6 @@ class _LessonListState extends State<LessonList> {
             ),
           ],
         ));
+
   }
 }

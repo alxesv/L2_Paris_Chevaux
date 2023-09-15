@@ -11,7 +11,8 @@ class MongoDatabase {
       lessonCollection,
       meetingCollection,
       tournamentCollection,
-      logsCollection;
+      logsCollection,
+      tournamentParticipationCollection;
 
   static connect() async {
     db = await Db.create(dotenv.env['MONGODB_URI']!);
@@ -23,6 +24,7 @@ class MongoDatabase {
     meetingCollection = db.collection('meetings');
     tournamentCollection = db.collection('tournaments');
     logsCollection = db.collection('logs');
+    tournamentParticipationCollection = db.collection('tournamentParticipation');
   }
 
   static Future<List<Map<String, dynamic>>> getDocuments(connection) async {
@@ -58,5 +60,9 @@ class MongoDatabase {
 
   static Future<List<Map<String, dynamic>>> getLogs() async {
     return await getDocuments(logsCollection);
+  }
+
+  static Future<List<Map<String, dynamic>>> getParticipants() async {
+    return await getDocuments(tournamentParticipationCollection);
   }
 }

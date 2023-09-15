@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../models/user.dart';
 import 'EditProfilePage.dart';
-
 import 'login.dart';
 
-
-
 class UserProfilePage extends StatefulWidget {
+
   @override
   _UserProfilePageState createState() => _UserProfilePageState();
 }
@@ -23,6 +22,27 @@ class _UserProfilePageState extends State<UserProfilePage> {
     });
   }
 
+  void _openLink(String link) async {
+    if (await canLaunch(link)) {
+      await launch(link);
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Could not launch the link.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -36,13 +56,19 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // back button to home page
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamed(context, '/home');
+          },
+        ),
         title: Text('User Profile'),
       ),
       body: loggedusername.isNotEmpty
           ? FutureBuilder<User?>(
               future: getCurrentUser(loggedusername),
               builder: (context, snapshot) {
-                print(snapshot);
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return CircularProgressIndicator();
                 } else if (snapshot.hasError) {
@@ -50,7 +76,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 } else if (!snapshot.hasData || snapshot.data == null) {
                   return Text('No user found');
                 } else {
-
                   User user = snapshot.data!;
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -64,30 +89,42 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                           SizedBox(height: 30),
                           Text(
-                            'Name: ${user.username}',
-                            style: TextStyle(
+                            'User : ${user.username}',
+                            style: const TextStyle(
                               fontSize: 30.0,
                             ),
                           ),
                           SizedBox(height: 30),
                           Text(
+                            'Phone : ${user.phone}',
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Text(
                             'Age: ${user.age}',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          Text(
-                            'Phone: ${user.phone}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20.0,
                             ),
                           ),
                           SizedBox(height: 30),
                           Text(
-                            'FFE : ${user.ffe}',
-                            style: TextStyle(
+                            'Email : ${user.email}',
+                            style: const TextStyle(
                               fontSize: 20.0,
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          GestureDetector(
+                            onTap: () => _openLink(user.ffe),
+                            child: Text(
+                              'Link : ${user.ffe}',
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue,
+                              ),
                             ),
                           ),
                           ElevatedButton(
@@ -101,10 +138,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 }
               },
             )
-          : Center(
-              child: Text("No username found, please login again."),
+          : const Center(
+              child: Text("No username found, please log in again."),
             ),
     );
-
   }
 }
