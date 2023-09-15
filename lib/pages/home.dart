@@ -80,6 +80,10 @@ class HomePage extends StatelessWidget {
               onTap: () => _navigateTo(context, '/LessonList'),
             ),
             ListTile(
+              title: Text('Tournament list'),
+              onTap: () => _navigateTo(context, '/TournamentList'),
+            ),
+            ListTile(
               title: Text('Users list'),
               onTap: () => _navigateTo(context, '/UsersList'),
             ),

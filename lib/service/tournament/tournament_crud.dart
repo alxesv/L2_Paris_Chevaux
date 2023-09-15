@@ -13,7 +13,3 @@ Future<void> deleteTournament(String id) async {
       .deleteOne(where.id(ObjectId.fromHexString(id)));
 }
 
-approveTournament(String id) async {
-  await MongoDatabase.tournamentCollection.update(
-      where.id(ObjectId.fromHexString(id)), modify.set('approved', true), upsert: true);
-}

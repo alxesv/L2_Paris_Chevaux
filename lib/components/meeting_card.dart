@@ -17,9 +17,11 @@ class MeetingCard extends StatelessWidget {
           elevation: 2.0,
           color: Colors.white,
           child: ListTile(
-            leading: Text(meeting.date.toString()),
+            leading: Image.network(meeting.photo, errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+              return const Icon(Icons.error);
+            },),
             title: Text(meeting.name),
-            subtitle: Text(meeting.address),
+            subtitle: Text('${meeting.address} on ${meeting.date}'),
             // if user is admin
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
