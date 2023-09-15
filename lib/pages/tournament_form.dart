@@ -48,7 +48,7 @@ class TournamentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _participantsController.text = '$loggedusername,';
+    _participantsController.text = loggedusername;
 
     return Scaffold(
       appBar: AppBar(
@@ -109,6 +109,7 @@ class TournamentPage extends StatelessWidget {
               onSaved:
                   (value) async {
                 if (value != null && value.isNotEmpty) {
+                  value.trim();
                   List<String> usernames = value.split(',');
                   for (int i = 0; i < usernames.length; i++) {
                     try {
@@ -117,7 +118,7 @@ class TournamentPage extends StatelessWidget {
                         User user = await getUserId(usernames[i]);
                         participants.add(user.id);
                         if (i == usernames.length - 1) {
-                          _insert();
+                            _insert();
                           print("Tournament added");
                         }
                       }
