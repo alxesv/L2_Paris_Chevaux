@@ -4,6 +4,8 @@ import 'package:mongo_dart/mongo_dart.dart' as M;
 import '../database/database.dart';
 import '../service/meetings/meetings_service.dart';
 import '../models/meeting.dart';
+import '../../models/logs.dart';
+import '../service/logs/log_service.dart';
 
 late String date;
 String subject = "Dressage";
@@ -21,6 +23,13 @@ class MeetingFormPage extends StatelessWidget {
     var meeting = Meeting(
         id: M.ObjectId(), photo: _photoController.text,
         name: _nameController.text, type: type, address:_addressController.text, date:date);
+        await newLog(Logs(
+        id: M.ObjectId(),
+        time: DateTime.now(),
+        type: "meeting",
+        relative: meeting.id,
+        message:
+            'New meeting ${meeting.name} has been planned for ${meeting.date}.'));
     saveMeeting(meeting);
   }
 

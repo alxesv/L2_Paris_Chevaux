@@ -4,7 +4,6 @@ import 'login.dart';
 import '../../models/user.dart';
 import 'start.dart';
 import 'userprofile.dart';
-
 import 'package:flutter/material.dart';
 // Add other necessary imports here
 
@@ -26,7 +25,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Home"),
         actions: [
-          // ... Your existing AppBar actions
+
         ],
       ),
       drawer: Drawer(

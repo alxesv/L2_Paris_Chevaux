@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:projet_chevaux/pages/lesson_form.dart';
 import 'package:projet_chevaux/pages/lessonlist.dart';
 import 'package:projet_chevaux/pages/horse_form.dart';
 import 'package:projet_chevaux/pages/horseslist.dart';
@@ -11,6 +12,7 @@ import '../database/database.dart';
 import '../pages/home.dart';
 import '../pages/meeting_form.dart';
 import '../pages/userprofile.dart';
+import '../pages/loglist.dart';
 import '../pages/lesson_form.dart';
 import '../pages/tournament_form.dart';
 
@@ -29,10 +31,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/login': (context) => LoginPage(),
-        '/register': (context) => RegisterPage(),
+        '/register': (context) => LogList(),
         '/start': (context) => StartPage(),
         '/home': (context) => HomePage(),
-        '/userprofile': (context) => UserProfilePage(),
         '/LessonFormPage': (context) => LessonFormPage(),
         '/TournamentPage': (context) => TournamentPage(),
         '/userprofile': (context) => UserProfilePage(),
@@ -40,7 +41,6 @@ class MyApp extends StatelessWidget {
         '/horseslist': (context) => HorsesList(),
         '/MeetingFormPage': (context) => MeetingFormPage(),
         '/UsersList': (context) => UsersList(),
-
       },
       debugShowCheckedModeBanner: false,
       title: 'Horse race manager',
@@ -48,8 +48,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-
-      home: const MyHomePage(title: 'COURSE MANAGER DE OUF'),
+      home: MyHomePage(title: "title"),
     );
   }
 }
@@ -64,6 +63,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return  StartPage();
+    return StartPage();
   }
 }
