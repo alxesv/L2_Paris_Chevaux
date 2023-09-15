@@ -10,7 +10,8 @@ import '../database/database.dart';
 import '../pages/home.dart';
 import '../pages/meeting_form.dart';
 import '../pages/userprofile.dart';
-
+import '../pages/lesson_form.dart';
+import '../pages/tournament_form.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -30,8 +31,16 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/start': (context) => StartPage(),
         '/home': (context) => HomePage(),
-        '/userprofile': (context) => UserProfilePage(), 
-        },
+        '/userprofile': (context) => UserProfilePage(),
+        '/LessonFormPage': (context) => LessonFormPage(),
+        '/TournamentPage': (context) => TournamentPage(),
+        '/userprofile': (context) => UserProfilePage(),
+        '/horse_form': (context) => HorseFormPage(),
+        '/horseslist': (context) => HorsesList(),
+        '/MeetingFormPage': (context) => MeetingFormPage(),
+        '/UsersList': (context) => UsersList(),
+
+      },
       debugShowCheckedModeBanner: false,
       title: 'Horse race manager',
       theme: ThemeData(

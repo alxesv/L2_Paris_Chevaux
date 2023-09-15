@@ -39,6 +39,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 } else if (!snapshot.hasData || snapshot.data == null) {
                   return Text('No user found');
                 } else {
+
                   User user = snapshot.data!;
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -46,18 +47,25 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     children: [
                       Column(
                         children: [
+                          CircleAvatar(
+                            radius: 100.0,
+                            backgroundImage: NetworkImage(user.avatar),  // Fetch avatar URL from the User object
+                          ),
+                          SizedBox(height: 30),
                           Text(
                             'Name: ${user.username}',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Text(
+                            'Age: ${user.age}',
                             style: TextStyle(
                               fontSize: 24.0,
                             ),
                           ),
-                          Text(
-                            'Age: ${user.age}',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                            ),
-                          ),
+                          SizedBox(height: 30),
                           Text(
                             'Phone: ${user.phone}',
                             style: TextStyle(
